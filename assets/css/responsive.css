@@ -1,0 +1,79 @@
+@media (max-width: 330px) {
+    .music_player {
+        top: 20px;
+    }
+
+    .play-list {
+        height: 320px;
+    }
+
+    .play-list__wrap {
+        margin-top: 20%;
+        animation: runInMobile ease 0.4s;
+    }
+
+    .play-list__wrap.wishwrap {
+        top: 22.5%;
+    }
+
+
+    .wishlist {
+        height: 251px;
+    }
+
+    .wishwrap .play-list__header {
+        height: 60px;
+    }
+}
+
+
+/* Iphone 6/7/8 Plus */
+@media (min-width: 401px) and (max-width: 1023px) {
+    .music_player {
+        width: 90%;
+        top: 105px;
+    }
+
+    .play-list__wrap {
+        margin-top: 30%;
+        animation: runInMobile ease 0.4s;
+    }
+
+    .play-list__wrap.wishwrap {
+        top: 19.5%;
+    }
+}
+
+/* Iphone 6/7/8 */
+@media (min-width: 331px) and (max-width: 739px) {
+    .music_player {
+        width: 90%;
+        top: 70px;
+    }
+
+    .play-list__wrap {
+        margin-top: 25%;
+        animation: runInMobile ease 0.4s;
+    }
+
+    .play-list__wrap.wishwrap {
+        top: 18.5%;
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .music_player {
+        top: 22%;
+        ;
+    }
+
+    .play-list__wrap {
+        margin-top: 4%;
+        animation: runInMobile ease 0.4s;
+    }
+
+    .play-list__wrap.wishwrap {
+        top: 32.7%;
+    }
+
+}

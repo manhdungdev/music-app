@@ -1,0 +1,478 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: 'Nunito', sans-serif;
+}
+
+
+
+.d {
+    height: 1000px;
+}
+
+.app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    background: linear-gradient(to top, #ffa3c5 25%, #c7a6da 100%);
+    background-repeat: no-repeat;
+    /* cursor: pointer; */
+}
+
+.music_player {
+    position: fixed;
+    top: 100px;
+    width: 100%;
+    max-width: 400px;
+    background-color: #f9edf5;
+    height: 535px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+    z-index: 1;
+
+}
+
+.header {
+    text-align: center;
+    padding: 12px;
+}
+
+.cd-wrapper {
+    width: 200px;
+    margin: auto;
+    margin-top: 16px;
+
+}
+
+.header-cd {
+    padding-top: 100%;
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+/* Detail Music */
+.detail {
+    text-align: center;
+    margin: 12px 0;
+    line-height: 1.6;
+
+}
+
+.detail__name {
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #daa4b8;
+}
+
+.detail__author {
+    font-style: italic;
+    font-weight: 300;
+    font-size: 16px;
+    opacity: 0.7;
+}
+
+
+
+/* Make detail processing */
+.detail_process {
+    width: 90%;
+    background-color: #d7caca;
+    height: 6px;
+    border-radius: 4px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.detail_processbar {
+
+    background: linear-gradient(90deg, #c7a6da 0%, #ffa3c5 75%);
+    height: 100%;
+    width: 5px;
+    position: relative;
+}
+
+/* Make Time music */
+.time {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px auto auto auto;
+    /* margin-top: 12px auto auto auto; */
+    width: 90%;
+}
+
+
+/*Make Control */
+.control {
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    align-items: center;
+    cursor: pointer;
+    width: 90%;
+    margin: 10px auto auto auto;
+}
+
+.control .fa-solid {
+    color: #c774bf;
+    font-size: 20px;
+}
+
+.start .fa-solid {
+    font-size: 45px;
+    color: #e588c6;
+}
+
+.pause {
+    display: none;
+}
+
+.start.playing .pause {
+    display: block;
+}
+
+.start.playing .play {
+    display: none;
+}
+
+
+.start.playing .fa-solid {
+    color: #fa4e9f;
+}
+
+.random.running .fa-solid {
+    color: #f30374;
+}
+
+/* Make playlist musics */
+.play-list__wrap {
+    position: relative;
+    width: 90%;
+    max-width: 380px;
+    margin-top: 50px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: none;
+    animation: runIn ease 0.4s;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+
+}
+
+
+.play-list__wrap.appear {
+    z-index: 1;
+    display: block;
+
+}
+
+.play-list {
+    height: 400px;
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
+.play-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* header */
+.play-list__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    justify-content: space-between;
+    background: linear-gradient(45deg, #c78daa 30%, #e0cfe0 50%, #e9c2c6 70%);
+    border-radius: 10px;
+    height: 55px;
+}
+
+.play-list__header.wishbg {
+    background: linear-gradient(135deg, #e873ad 30%, #e8abdc 50%, #e872a9 70%);
+}
+
+.play-list__header-list {
+    width: 30px;
+    height: 30px;
+    margin: 12px 12px 8px 24px;
+}
+
+.play-list__header-text {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.play-list__header-exit .fa-solid {
+    padding: 4px 16px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.7);
+
+}
+
+.fa-x:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    color: #fff;
+}
+
+.song {
+    height: 70px;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.song.active {
+    background-color: #c774bf;
+}
+
+.song:hover {
+    color: #fff;
+    background: linear-gradient(90deg, #c7a6da 50%, #ffa3c5 100%);
+}
+
+
+.song-avatar {
+    min-width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0 8px;
+}
+
+.song-des {
+    margin: 0 12px;
+}
+
+.song-des__name {
+    font-size: 18px;
+}
+
+.song-des.effect {
+    max-width: 120px;
+}
+
+.song-des.effect h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-des__singer {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    opacity: 0.7;
+}
+
+
+.song-option,
+.song-option__wish {
+    margin-left: auto;
+    padding: 4px 12px;
+}
+
+
+
+/* Make volume */
+.volume {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.volume-icon {
+    color: #c774bf;
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+
+.volume-bar {
+    width: 45%;
+    background-color: #d3d3d3;
+    height: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.volume-bar__process {
+    background: linear-gradient(90deg, #c7a6da 0%, #ffa3c5 75%);
+    height: 100%;
+    position: relative;
+    /* width: 20px; */
+}
+
+.icon-process::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #f0528c;
+    border-radius: 50%;
+    right: -5px;
+    top: 0;
+    transform: translateY(-30%);
+    border: 2px solid #fff;
+    outline: 0.5px solid rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+
+}
+
+.detail_process:hover .icon-process::after,
+.volume-bar:hover .icon-process::after {
+    opacity: 1;
+}
+
+/* Make overlay layout */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 2;
+    display: none;
+}
+
+.overlay.exist {
+    display: block;
+}
+
+/* Css Option select */
+.option-select {
+    position: absolute;
+    width: 90%;
+    max-width: 400px;
+    height: 100px;
+    border-radius: 10px;
+    background-color: #eba0b5;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: slideDown ease 0.5s;
+    display: none;
+}
+
+
+.option-select.arise {
+    display: flex;
+}
+
+.option-select__heading {
+    font-size: 22px;
+    color: #000;
+    padding: 8px 12px 2px;
+    font-weight: 500;
+    cursor: default;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.option-select__wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.option-select__wrapper span {
+    display: block;
+    padding: 12px;
+    color: #000;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.option-select__wrapper span:hover {
+    background-color: #e3789f;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.option-select__wrapper>:nth-child(1) {
+    flex: 1;
+}
+
+.option-select__wrapper>:nth-child(2) {
+    flex: 1;
+}
+
+.option-select__exit {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 10px 16px;
+}
+
+.option-select__exit:hover {
+    opacity: 0.5;
+    cursor: pointer;
+
+}
+
+/* Make wishlist */
+/* Wislist icon */
+.wishlist-icon i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 16px;
+    color: #f771a6;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.play-list__wrap.wishwrap {
+    position: absolute;
+    /* display: block; */
+    top: 184px;
+}
+
+.wishlist {
+    height: 320px;
+    overflow-y: scroll;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+}
+
+.wishlist::-webkit-scrollbar {
+    display: none;
+}
+
+.play-list__header-wish {
+    font-size: 22px;
+    padding: 8px 16px;
+    color: rgb(14 6 6 / 65%);
+}
+
+
+/* Option command */
+.none {
+    display: none;
+}
