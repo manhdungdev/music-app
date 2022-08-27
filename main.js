@@ -1,50 +1,50 @@
-let $ = document.querySelector.bind(document);
-let $$ = document.querySelectorAll.bind(document);
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
 
-let appElement = $(".app");
-let musicPlayer = $(".music_player");
-let playList = $(".play-list");
-let playListWrap = $(".play-list__wrap");
-let listMusicBtn = $(".list");
-let exitBtnPlayList = $(".playwrap .play-list__header-exit");
-let control = $(".control");
-let playListHeader = $(".play-list__header");
+const appElement = $(".app");
+const musicPlayer = $(".music_player");
+const playList = $(".play-list");
+const playListWrap = $(".play-list__wrap");
+const listMusicBtn = $(".list");
+const exitBtnPlayList = $(".playwrap .play-list__header-exit");
+const control = $(".control");
+const playListHeader = $(".play-list__header");
 
-let start = $(".start");
+const start = $(".start");
 
-let prevBtn = $(".previous");
-let nextBtn = $(".next");
-let randomBtn = $(".random");
+const prevBtn = $(".previous");
+const nextBtn = $(".next");
+const randomBtn = $(".random");
 
-let headingName = $(".detail__name");
-let singer = $(".detail__author");
-let cdSymb = $(".header-cd");
-let audio = $("#audio");
+const headingName = $(".detail__name");
+const singer = $(".detail__author");
+const cdSymb = $(".header-cd");
+const audio = $("#audio");
 
-let processBar = $(".detail_process");
-let processSub = $(".detail_processbar");
+const processBar = $(".detail_process");
+const processSub = $(".detail_processbar");
 
-let volumeIcon = $(".volume-icon");
-let volumeBar = $(".volume-bar");
-let volumeSub = $(".volume-bar__process")
+const volumeIcon = $(".volume-icon");
+const volumeBar = $(".volume-bar");
+const volumeSub = $(".volume-bar__process")
 
-let timeCur = $(".time-current");
-let timeDur = $(".time-duration");
+const timeCur = $(".time-current");
+const timeDur = $(".time-duration");
 
-let optionBtn = $(".song-option");
-let optionSelect = $(".option-select");
-let optionExit = $(".option-select__exit");
-let addBtn = $(".option-add");
-let removeBtn = $(".option-remove");
+const optionBtn = $(".song-option");
+const optionSelect = $(".option-select");
+const optionExit = $(".option-select__exit");
+const addBtn = $(".option-add");
+const removeBtn = $(".option-remove");
 
-let wishwrap = $(".wishwrap");
-let wishlist = $(".wishlist");
-let wishIconBtn = $(".wishlist-icon");
-let exitBtnWishList = $(".wishwrap .play-list__header-exit")
+const wishwrap = $(".wishwrap");
+const wishlist = $(".wishlist");
+const wishIconBtn = $(".wishlist-icon");
+const exitBtnWishList = $(".wishwrap .play-list__header-exit")
 
-let overlay = $(".overlay");
+const overlay = $(".overlay");
 
-let cdElement = cdSymb.animate([{
+const cdElement = cdSymb.animate([{
     transform: "rotate(360deg)",
 }], {
     duration: 10000,
@@ -55,11 +55,11 @@ let cdElement = cdSymb.animate([{
 cdElement.pause();
 
 
-let setIndex = new Set();
+const setIndex = new Set();
 
 // Make function to fetch API
 
-// let APIurl = "http://localhost:3000/songs";
+// const APIurl = "http://localhost:3000/songs";
 // function getAPI(cb) {
 //     fetch(APIurl)
 //         .then(function (response) {
@@ -73,7 +73,7 @@ let setIndex = new Set();
 // getAPI(playSong);
 // function playSong(data) {
 
-let app = {
+const app = {
     songStates: ["fa-repeat", "fa-arrow-rotate-right", "fa-shuffle"],
     currentState: 0,
     volumeStates: ["fa-volume-xmark", "fa-volume-low", "fa-volume-high"],
@@ -237,7 +237,7 @@ let app = {
 
     // Render the playlist
     render() {
-        let html = this.songs.map((song, index) => {
+        const html = this.songs.map((song, index) => {
             return `<div class="song ${index === this.currentIndex ? "active" : ""}" data-index=${index}>
                 <div class="song-avatar" style="background-image: url(${song.img});">
 
@@ -264,7 +264,7 @@ let app = {
 
     // Render the wishlist
     renderWishList() {
-        let html = Array.prototype.slice.call($$(".song")).map((song, index) => {
+        const html = Array.prototype.slice.call($$(".song")).map((song, index) => {
             if (song.classList.contains("wish")) {
                 // return `${song.outerHTML}`;   
                 /* Get the code of song (consist content inline), 
@@ -300,7 +300,7 @@ let app = {
     handleEvent() {
 
         // Store this to _this
-        let _this = this;
+        const _this = this;
 
         listMusicBtn.onclick = function () {
             _this.addBackGroundList();
@@ -340,7 +340,7 @@ let app = {
 
         // Update element when audio is playing
         audio.ontimeupdate = function () {
-            let widthpro = processBar.offsetWidth;
+            const widthpro = processBar.offsetWidth;
             if (this.durarion !== NaN) {
                 processSub.style.width = (this.currentTime / this.duration * widthpro) + "px";
             }
@@ -372,7 +372,7 @@ let app = {
 
         // Seek time music
         processBar.onmousedown = function (e) {
-            let seekTime = (e.offsetX / this.offsetWidth) * audio.duration;
+            const seekTime = (e.offsetX / this.offsetWidth) * audio.duration;
             audio.currentTime = seekTime;
             _this.isHoldMusic = true;
         }
@@ -380,21 +380,21 @@ let app = {
         // Adjust music time by mouse event
         processBar.onmousemove = function (e) {
             if (_this.isHoldMusic) {
-                let seekTime = (e.offsetX / this.offsetWidth) * audio.duration;
+                const seekTime = (e.offsetX / this.offsetWidth) * audio.duration;
                 audio.currentTime = seekTime;
             }
         }
 
         // Adjust music time by touch event
         processBar.ontouchmove = function (e) {
-            let widthOfTime = (e.touches[0].clientX - 47);
+            const widthOfTime = (e.touches[0].clientX - 47);
             if (widthOfTime > this.offsetWidth) {
                 widthOfTime = this.offsetWidth;
             } else if (widthOfTime < 0) {
                 widthOfTime = 0;
             }
             if (widthOfTime <= this.offsetWidth && widthOfTime >= 0) {
-                let seekTime = (widthOfTime / this.offsetWidth) * audio.duration;
+                const seekTime = (widthOfTime / this.offsetWidth) * audio.duration;
                 audio.currentTime = seekTime;
                 processSub.style.width = widthOfTime + "px";
             }
@@ -403,7 +403,7 @@ let app = {
         // Seek volume
         volumeBar.onmousedown = function (e) {
             if (e.offsetX <= this.offsetWidth && e.offsetX >= 0) {
-                let seekVolume = (e.offsetX / this.offsetWidth);
+                const seekVolume = (e.offsetX / this.offsetWidth);
                 audio.volume = seekVolume;
                 _this.isHoldVolume = true;
                 volumeSub.style.width = seekVolume * this.offsetWidth + "px";
@@ -414,7 +414,7 @@ let app = {
         volumeBar.onmousemove = function (e) {
             if (_this.isHoldVolume) {
                 if (e.offsetX <= this.offsetWidth && e.offsetX >= 0) {
-                    let seekVolume = (e.offsetX / this.offsetWidth);
+                    const seekVolume = (e.offsetX / this.offsetWidth);
                     audio.volume = seekVolume;
                     volumeSub.style.width = seekVolume * this.offsetWidth + "px";
                 }
@@ -423,14 +423,14 @@ let app = {
 
         // Adjust volume by touch event
         volumeBar.ontouchmove = function (e) {
-            let widthOfVol = (e.touches[0].clientX - 130);
+            const widthOfVol = (e.touches[0].clientX - 130);
             if (widthOfVol > this.offsetWidth) {
                 widthOfVol = this.offsetWidth;
             } else if (widthOfVol < 0) {
                 widthOfVol = 0;
             }
             if (widthOfVol <= this.offsetWidth && widthOfVol >= 0) {
-                let seekVolume = (widthOfVol / this.offsetWidth);
+                const seekVolume = (widthOfVol / this.offsetWidth);
                 audio.volume = seekVolume;
                 volumeSub.style.width = seekVolume * this.offsetWidth + "px";
             }
@@ -470,7 +470,7 @@ let app = {
         }
 
         window.onkeydown = function (e) {
-            let btn = e.keyCode;
+            const btn = e.keyCode;
             switch (btn) {
                 // Click on Left arrow to come again 5 seconds ago
                 case 37: {
@@ -571,11 +571,11 @@ let app = {
 
         // Change song when click 
         playList.onclick = function (e) {
-            let wishSongs = $$(".song");
-            let songNode = e.target.closest(".song:not(.active)");
+            const wishSongs = $$(".song");
+            const songNode = e.target.closest(".song:not(.active)");
             if (e.target.closest(".song-option")) { // Hanlde when click on option button
                 e.stopPropagation();
-                let order = e.target.closest(".song").dataset.index;
+                const order = e.target.closest(".song").dataset.index;
                 optionSelect.classList.add("arise");
                 overlay.classList.add("exist");
 
@@ -604,7 +604,7 @@ let app = {
                     _this.renderWishList();
                 }
             } else if (songNode) { // Handle when click on a music element
-                let order = songNode.getAttribute("data-index") || songNode.dataset.index;
+                const order = songNode.getAttribute("data-index") || songNode.dataset.index;
                 _this.currentIndex = order;
                 _this.loadCurrentSong();
                 _this.activeSong();
@@ -665,13 +665,13 @@ let app = {
 
         // Click on ellipsis remove a music from wishlist (In case wishlist)
         wishwrap.onclick = function (e) {
-            let songNode = e.target.closest(".song:not(.active)");
+            const songNode = e.target.closest(".song:not(.active)");
             if (e.target.closest(".song-option__wish")) {
                 _this.stopPropag(e);
-                let wishSongs = $$(".song");
-                let confirmBtnYes = optionSelect.querySelector(".option-add");
-                let confirmBtnNo = optionSelect.querySelector(".option-remove");
-                let order = e.target.closest(".song").dataset.index;
+                const wishSongs = $$(".song");
+                const confirmBtnYes = optionSelect.querySelector(".option-add");
+                const confirmBtnNo = optionSelect.querySelector(".option-remove");
+                const order = e.target.closest(".song").dataset.index;
                 overlay.classList.add("exist");
                 optionSelect.classList.add("arise");
 
@@ -691,7 +691,7 @@ let app = {
                     optionSelect.classList.remove("arise");
                 }
             } else if (songNode) {
-                let order = songNode.getAttribute("data-index") || songNode.dataset.index;
+                const order = songNode.getAttribute("data-index") || songNode.dataset.index;
                 _this.currentIndex = order;
                 _this.loadCurrentSong();
                 _this.activeSong();
@@ -794,14 +794,14 @@ let app = {
 
     // Change song active
     activeSong: function () {
-        let musics = $$(".song");
+        const musics = $$(".song");
         musics.forEach((music) => {
             if (music.classList.contains("active")) {
                 music.classList.remove("active");
             }
         })
         musics[this.currentIndex].classList.add("active");
-        let waves = playList.querySelectorAll(".wave");
+        const waves = playList.querySelectorAll(".wave");
         waves.forEach((wave) => {
             if (wave.classList.contains("current")) {
                 wave.classList.remove("current");
@@ -809,7 +809,7 @@ let app = {
         })
         waves[this.currentIndex].classList.add("current");
 
-        let songeffs = $$(".song-des");
+        const songeffs = $$(".song-des");
         songeffs.forEach((songeff) => {
             if (songeff.classList.contains("effect")) {
                 songeff.classList.remove("effect");
@@ -820,7 +820,7 @@ let app = {
 
     // Scroll to current song
     scrollToCurrentSong: function () {
-        let activeSong = $$(".song.active");
+        const activeSong = $$(".song.active");
         activeSong.forEach((element) => {
             setTimeout(() => {
                 element.scrollIntoView({
@@ -833,17 +833,17 @@ let app = {
 
     // Initialize volume
     initialVolume: function () {
-        let defaultVolume = 0.5;
+        const defaultVolume = 0.5;
         audio.volume = defaultVolume;
-        let volumeWidth = volumeBar.offsetWidth;
+        const volumeWidth = volumeBar.offsetWidth;
         volumeSub.style.width = (volumeWidth * defaultVolume) + "px";
     },
 
     // Time formatter
     timeFormatter: function (timeElement) {
-        let timeFloored = Math.floor(timeElement);
-        let min = Math.floor(timeFloored / 60);
-        let sec = timeFloored % 60;
+        const timeFloored = Math.floor(timeElement);
+        const min = Math.floor(timeFloored / 60);
+        const sec = timeFloored % 60;
         return `${min >= 10 ? min + "" : "0" + min}:${sec >= 10 ? sec + "" : "0" + sec} `;
     },
 
