@@ -227,7 +227,6 @@ function playSong(data) {
         //         "music": "./assets/music/song20.mp3",
         //         "id": 20
         //     }
-
         // ],
         defineProperties: function () {
             Object.defineProperty(this, "currentSong", {
