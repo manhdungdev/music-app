@@ -387,7 +387,7 @@ const app = {
 
         // Adjust music time by touch event
         processBar.ontouchmove = function (e) {
-            const widthOfTime = (e.touches[0].clientX - 47);
+            const widthOfTime = Math.floor((e.touches[0].clientX - 47));
             if (widthOfTime > this.offsetWidth) {
                 widthOfTime = this.offsetWidth;
             } else if (widthOfTime < 0) {
@@ -423,12 +423,13 @@ const app = {
 
         // Adjust volume by touch event
         volumeBar.ontouchmove = function (e) {
-            const widthOfVol = (e.touches[0].clientX - 130);
+            const widthOfVol = Math.floor((e.touches[0].clientX - 130));
             if (widthOfVol > this.offsetWidth) {
                 widthOfVol = this.offsetWidth;
             } else if (widthOfVol < 0) {
                 widthOfVol = 0;
             }
+            $(".header-des").innerHTML = widthOfVol;
             if (widthOfVol <= this.offsetWidth && widthOfVol >= 0) {
                 const seekVolume = (widthOfVol / this.offsetWidth);
                 audio.volume = seekVolume;
