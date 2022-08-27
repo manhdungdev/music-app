@@ -3,6 +3,8 @@ const server = jsonServer.create()
 const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 
+
+
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares)
 
@@ -22,9 +24,12 @@ server.use((req, res, next) => {
     next()
 })
 
+
+// use alternate localhost and the port Heroku assigns to $PORT
+const host = '0.0.0.0';
 // Use default router
 const PORT = process.env.PORT || 3000;
 server.use(router)
-server.listen(PORT, () => {
+server.listen(PORT, host, () => {
     console.log('JSON Server is running')
 }) 
