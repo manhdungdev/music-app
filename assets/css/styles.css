@@ -8,6 +8,7 @@ html,
 body {
     height: 100%;
     font-family: 'Nunito', sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -122,6 +123,7 @@ body {
     width: 90%;
     margin: 10px auto auto auto;
 }
+
 
 .control .fa-solid {
     color: #c774bf;

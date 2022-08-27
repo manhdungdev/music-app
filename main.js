@@ -43,9 +43,6 @@ let wishIconBtn = $(".wishlist-icon");
 let exitBtnWishList = $(".wishwrap .play-list__header-exit")
 
 let overlay = $(".overlay");
-// let confirmNotification =  $(".confirm");
-
-
 
 let cdElement = cdSymb.animate([{
     transform: "rotate(360deg)",
@@ -228,6 +225,8 @@ let app = {
             "id": 20
         }
     ],
+
+    // Define the current song
     defineProperties: function () {
         Object.defineProperty(this, "currentSong", {
             get: function () {
@@ -235,6 +234,8 @@ let app = {
             }
         })
     },
+
+    // Render the playlist
     render() {
         let html = this.songs.map((song, index) => {
             return `<div class="song ${index === this.currentIndex ? "active" : ""}" data-index=${index}>
@@ -260,6 +261,8 @@ let app = {
         });
         playList.innerHTML = html.join("");
     },
+
+    // Render the wishlist
     renderWishList() {
         let html = Array.prototype.slice.call($$(".song")).map((song, index) => {
             if (song.classList.contains("wish")) {
@@ -292,17 +295,17 @@ let app = {
         });
         wishlist.innerHTML = html.join("");
     },
+
+    // Handle events
     handleEvent() {
+
+        // Store this to _this
         let _this = this;
-
-
-
 
         listMusicBtn.onclick = function () {
             _this.addBackGroundList();
             _this.scrollToCurrentSong();
         };
-
 
         appElement.onclick = function () {
             _this.moveList();
@@ -312,15 +315,15 @@ let app = {
         control.onclick = function (e) {
             _this.stopPropag(e);
         };
+
         playListHeader.onclick = function (e) {
             _this.stopPropag(e);
         };
+
         $(".play-list__header.wishbg").onclick = function (e) {
             _this.stopPropag(e);
         }
 
-        // };
-        // list();
         start.onclick = function () {
             if (_this.isPlaying) {
                 audio.pause();
@@ -334,6 +337,7 @@ let app = {
             timeCur.textContent = _this.timeFormatter(this.currentTime);
             timeDur.textContent = _this.timeFormatter(this.duration);
         }
+
         // Update element when audio is playing
         audio.ontimeupdate = function () {
             let widthpro = processBar.offsetWidth;
@@ -342,6 +346,8 @@ let app = {
             }
             timeCur.textContent = _this.timeFormatter(this.currentTime);
         }
+
+        // Handle when end the song, auto move to the next song
         audio.onended = function () {
             if (_this.currentState == 1) {
                 audio.play();
@@ -350,6 +356,7 @@ let app = {
                 nextBtn.click();
             }
         }
+
         // Play and pause music
         audio.onplay = function () {
             _this.isPlaying = true;
@@ -363,18 +370,33 @@ let app = {
             start.classList.remove("playing");
         }
 
-
-        // Seek music
+        // Seek time music
         processBar.onmousedown = function (e) {
             let seekTime = (e.offsetX / this.offsetWidth) * audio.duration;
             audio.currentTime = seekTime;
             _this.isHoldMusic = true;
-
         }
+
+        // Adjust music time by mouse event
         processBar.onmousemove = function (e) {
             if (_this.isHoldMusic) {
                 let seekTime = (e.offsetX / this.offsetWidth) * audio.duration;
                 audio.currentTime = seekTime;
+            }
+        }
+
+        // Adjust music time by touch event
+        processBar.ontouchmove = function (e) {
+            let widthOfTime = (e.touches[0].clientX - 47);
+            if (widthOfTime > this.offsetWidth) {
+                widthOfTime = this.offsetWidth;
+            } else if (widthOfTime < 0) {
+                widthOfTime = 0;
+            }
+            if (widthOfTime <= this.offsetWidth && widthOfTime >= 0) {
+                let seekTime = (widthOfTime / this.offsetWidth) * audio.duration;
+                audio.currentTime = seekTime;
+                processSub.style.width = widthOfTime + "px";
             }
         }
 
@@ -386,9 +408,9 @@ let app = {
                 _this.isHoldVolume = true;
                 volumeSub.style.width = seekVolume * this.offsetWidth + "px";
             }
-
         }
 
+        // Adjust volume by mouse event
         volumeBar.onmousemove = function (e) {
             if (_this.isHoldVolume) {
                 if (e.offsetX <= this.offsetWidth && e.offsetX >= 0) {
@@ -396,6 +418,21 @@ let app = {
                     audio.volume = seekVolume;
                     volumeSub.style.width = seekVolume * this.offsetWidth + "px";
                 }
+            }
+        }
+
+        // Adjust volume by touch event
+        volumeBar.ontouchmove = function (e) {
+            let widthOfVol = (e.touches[0].clientX - 130);
+            if (widthOfVol > this.offsetWidth) {
+                widthOfVol = this.offsetWidth;
+            } else if (widthOfVol < 0) {
+                widthOfVol = 0;
+            }
+            if (widthOfVol <= this.offsetWidth && widthOfVol >= 0) {
+                let seekVolume = (widthOfVol / this.offsetWidth);
+                audio.volume = seekVolume;
+                volumeSub.style.width = seekVolume * this.offsetWidth + "px";
             }
         }
 
@@ -425,8 +462,8 @@ let app = {
             }
         }
 
-        // Hanlde event on keyboar
 
+        // Hanlde event on keyboar
         window.onmouseup = () => {
             _this.isHoldMusic = false;
             _this.isHoldVolume = false;
@@ -490,6 +527,7 @@ let app = {
         }
 
 
+        // Next song by click on next button
         nextBtn.onclick = function () {
             if (_this.currentState == 2) {
                 _this.randomIndex();
@@ -504,6 +542,8 @@ let app = {
             wishlist.innerHTML = "";
             _this.renderWishList();
         }
+
+        // Previous song by click on previous button
         prevBtn.onclick = function () {
             if (_this.currentState == 2) {
                 _this.randomIndex();
@@ -518,6 +558,7 @@ let app = {
             wishlist.innerHTML = "";
             _this.renderWishList();
         }
+
         // Change state songs
         randomBtn.onclick = function () {
             _this.changeStates();
@@ -569,6 +610,7 @@ let app = {
                 _this.activeSong();
                 audio.play();
                 cdElement.cancel();
+
                 //Reload the wishlist
                 wishlist.innerHTML = "";
                 _this.renderWishList();
@@ -597,13 +639,8 @@ let app = {
                 _this.addBackgroundWish();
                 _this.stopPropag(e);
             }
-
             _this.scrollToCurrentSong();
-
         }
-
-
-
 
         // Click to close wishlist
         exitBtnWishList.onclick = function (e) {
@@ -614,6 +651,7 @@ let app = {
                 _this.moveWish();
             }
         }
+
         // Click to close playlist
         exitBtnPlayList.onclick = function () {
             if (wishwrap.classList.contains("appear")) {
@@ -637,11 +675,9 @@ let app = {
                 overlay.classList.add("exist");
                 optionSelect.classList.add("arise");
 
-
                 optionSelect.querySelector(".option-select__heading").textContent = "Confirm to remove?";
                 optionSelect.querySelector(".option-add").textContent = "YES";
                 optionSelect.querySelector(".option-remove").textContent = "NO";
-
 
                 confirmBtnYes.onclick = function (event) {
                     overlay.classList.remove("exist");
@@ -668,6 +704,8 @@ let app = {
             }
         }
     },
+
+    // Load the current song on the main view
     loadCurrentSong: function () {
         headingName.textContent = this.currentSong.name;
         singer.textContent = this.currentSong.singer;
@@ -707,29 +745,30 @@ let app = {
         (wishIconBtn.querySelector(".fa-brands")).style.color = "var(--icon-wish-color)";
     },
 
-
     // Stop prapagation event 
     stopPropag: function (e) {
         e.stopPropagation();
     },
 
     // Change songs
+    // Next song
     nextSong: function () {
         this.currentIndex++;
         if (this.currentIndex == this.songs.length) {
             this.currentIndex = 0;
         }
         this.loadCurrentSong();
-
     },
+
+    // Previous song
     prevSong: function () {
         this.currentIndex--;
         if (this.currentIndex < 0) {
             this.currentIndex = this.songs.length - 1;
         }
         this.loadCurrentSong();
-
     },
+
     // Change states
     changeStates: function () {
         this.currentState++;
@@ -778,9 +817,9 @@ let app = {
         })
         songeffs[this.currentIndex].classList.add("effect");
     },
+
     // Scroll to current song
     scrollToCurrentSong: function () {
-
         let activeSong = $$(".song.active");
         activeSong.forEach((element) => {
             setTimeout(() => {
@@ -808,6 +847,7 @@ let app = {
         return `${min >= 10 ? min + "" : "0" + min}:${sec >= 10 ? sec + "" : "0" + sec} `;
     },
 
+    // Function start when the app is run
     start() {
         this.defineProperties();
 
@@ -818,10 +858,9 @@ let app = {
         this.handleEvent();
 
         this.render();
-
     },
-
 }
 
+// Call function start
 app.start();
 // }

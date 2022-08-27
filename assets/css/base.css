@@ -4,6 +4,10 @@
     --background-mp-default: #f9edf5;
     --icon-wish-color: #f771a6;
     --color-text: #fff;
+    --add: "";
+    --remove: "";
+    --yes: "yes";
+    --no: "no";
 }
 
 
