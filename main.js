@@ -429,7 +429,6 @@ const app = {
             } else if (widthOfVol < 0) {
                 widthOfVol = 0;
             }
-            $(".header-des").innerHTML = widthOfVol;
             if (widthOfVol <= this.offsetWidth && widthOfVol >= 0) {
                 const seekVolume = (widthOfVol / this.offsetWidth);
                 audio.volume = seekVolume;
