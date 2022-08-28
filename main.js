@@ -44,6 +44,8 @@ const exitBtnWishList = $(".wishwrap .play-list__header-exit")
 
 const overlay = $(".overlay");
 
+const setIndex = new Set();
+
 const cdElement = cdSymb.animate([{
     transform: "rotate(360deg)",
 }], {
@@ -53,9 +55,6 @@ const cdElement = cdSymb.animate([{
 
 // Rotate cd (Default is paused)
 cdElement.pause();
-
-
-const setIndex = new Set();
 
 // Make function to fetch API
 
@@ -864,3 +863,5 @@ const app = {
 // Call function start
 app.start();
 // }
+
+
